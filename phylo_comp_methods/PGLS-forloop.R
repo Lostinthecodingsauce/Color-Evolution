@@ -26,6 +26,38 @@ Brill <- log(data[c(13,14)])
 data <- data[c(-13,-14)]
 df <- cbind(data,Brill)
 
+model_names <- c("Nonforest",
+                   "Strata",
+                   "Migration",
+                   "Forest Dependency",
+                   "Nonforest+Strata",
+                   "Nonforest+Migration",
+                   "Forest Dependency+Strata",
+                   "Forest Dependency+Migration",
+                   "Migration+Strata",
+                   "Migration+Strata+Nonforest",
+                   "Migration+Strata+Forest Dependency",
+                   "Habitat",
+                   "Habitat+Strata",
+                   "Habitat+Migration",
+                   "Migration+Strata+Habitat"
+                   )
+
+#Model_1	Nonforest
+#Model_2	Strata
+##Model_3	Migration
+#Model_4	Forest Dependency
+#Model_5	Nonforest+Strata
+#Model_6	Nonforest+Migration
+#Model_7	Forest Dependency+Strata
+#Model_8	Forest Dependency+Migration
+#Model_9	Migration+Strata
+#Model_10	Migration+Strata+Nonforest
+#Model_11	Migration+Strata+Forest Dependency
+#Model_12	Habitat
+#Model_13	Habitat+Strata
+#Model_14	Habitat+Migration
+#Model_15	Migration+Strata+Habitat
 
 # need to drop this species from all analysis 
 # "Periporphyrus_erythromelas"
@@ -84,7 +116,7 @@ FvMmodsAIC[,5]<-as.numeric(as.character(FvMmodsAIC[,5]))
 names(FvMmodsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
 
 FvM<-FvMmodsAIC[order(FvMmodsAIC$AICc),]
-write.csv(FvM,"Results/PGLS/FvM_models.csv")
+write.csv(FvM,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca//FvM_models.csv")
 
 
 ############################################
@@ -125,8 +157,10 @@ mPC1modsAIC[,5]<-as.numeric(as.character(mPC1modsAIC[,5]))
 
 names(mPC1modsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
 
+mPC1modsAIC["Habitat_Trait"] <- c(model_names)
+
 mPC1<-mPC1modsAIC[order(mPC1modsAIC$AICc),]
-write.csv(mPC1,"Results/PGLS/mPC1_models.csv")
+write.csv(mPC1,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/mPC1_models.csv")
 
 bonfor.mpc1 <- p.adjust(mPC1$`p-value`, method = p.adjust.methods, n = length(mPC1$`p-value`))
 
@@ -165,9 +199,10 @@ mPC2modsAIC[,3]<-as.numeric(as.character(mPC2modsAIC[,3]))
 mPC2modsAIC[,5]<-as.numeric(as.character(mPC2modsAIC[,5]))
 
 names(mPC2modsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
+mPC2modsAIC["Habitat_Trait"] <- c(model_names)
 
 mPC2<-mPC2modsAIC[order(mPC2modsAIC$AICc),]
-write.csv(mPC2,"Results/PGLS/mPC2_models.csv")
+write.csv(mPC2,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/mPC2_models.csv")
 
 ################################
 # Just categorical variables 
@@ -205,8 +240,10 @@ fPC1modsAIC[,5]<-as.numeric(as.character(fPC1modsAIC[,5]))
 
 names(fPC1modsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
 
+fPC1modsAIC["Habitat_Trait"] <- c(model_names)
+
 fPC1<-fPC1modsAIC[order(fPC1modsAIC$AICc),]
-write.csv(fPC1,"Results/PGLS/fPC1_models.csv")
+write.csv(fPC1,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/fPC1_models.csv")
 
 ##############################
 # Just categorical variables 
@@ -244,8 +281,11 @@ fPC2modsAIC[,5]<-as.numeric(as.character(fPC2modsAIC[,5]))
 
 names(fPC2modsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
 
+
+fPC2modsAIC["Habitat_Trait"] <- c(model_names)
+
 fPC2<-fPC2modsAIC[order(fPC2modsAIC$AICc),]
-write.csv(fPC2,"Results/PGLS/fPC2_models.csv")
+write.csv(fPC2,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/fPC2_models.csv")
 
 ###########################################################################
 ## Brillance #########
@@ -284,9 +324,13 @@ fAvgBrillmodsAIC[,5]<-as.numeric(as.character(fAvgBrillmodsAIC[,5]))
 #fAvgBrillmodsAIC[,6]<-(as.character(fAvgBrillmodsAIC[,6]))
 names(fAvgBrillmodsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda","traits")
 
+fAvgBrillmodsAIC["Habitat_Trait"] <- c(model_names)
+
 fAvgBrill<-fAvgBrillmodsAIC[order(fAvgBrillmodsAIC$AICc),]
-write.csv(fAvgBrill,"Results/PGLS/fAvgBrill_models.csv")
-#############
+write.csv(fAvgBrill,"Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/fAvgBrill_models.csv")
+
+#########################
+
 
 # mAvgBrill
 mAvgBrillmods<-list()
@@ -322,8 +366,18 @@ mAvgBrillmodsAIC[,5]<-as.numeric(as.character(mAvgBrillmodsAIC[,5]))
 
 names(mAvgBrillmodsAIC)<-c("model","AICc","adj_r_sq","p-value","lambda")
 
+mAvgBrillmodsAIC["Habitat_Trait"] <- c(model_names)
+
 mAvgBrill<-mAvgBrillmodsAIC[order(mAvgBrillmodsAIC$AICc),]
 write.csv(mAvgBrill,"Results/PGLS/mAvgBrill_models.csv")
+
+###################################
+# Combine all results into single model
+
+all_Merged <- do.call("rbind", list(mPC1, mPC2, fPC1, fPC2))#, mAvgBrill, fAvgBrill))
+write_csv(all_Merged, file = "C:/Research/Masters_thesis/MT_tree_analysis/Results/PGLS/Chapter2/phylo_pca/all_models.csv")
+
+##################
 
 ##############################
 ######## Raw Traits ########
@@ -414,21 +468,3 @@ write.csv(FvM,"Results/PGLS/Chapter2/FvM_rawTraits_models.csv")
 ####################################################################################
 ####################################################################################
 ####################################################################################
-
-###################################################################
-pdf("Results/PGLS/mPC2~VisRed.mean.pdf")
-
-
-ggplot(comp.data$data,aes(x=mPC2,y=VisRed.mean))+geom_jitter(width=.1,height=.1,size=4,alpha=.5)+theme_bw()+geom_abline()
-
-dev.off()
-
-
-library(reshape)
-d<-data.frame(comp.data$data$Percent.Tree.cover,comp.data$data$ClimPC1,comp.data$data$LandComp.1,comp.data$data$NDVI.mean)
-names(d)<-c("Percent.Tree.cover","ClimPC1","LandComp.1","NDVI.mean")
-td16<-melt(d,id="Percent.Tree.cover")
-
-pdf("Results/PGLS/fPC1~Tree.Cover+Clim1+Land1.pdf")
-ggplot(td16,aes(y=tdextent,x=value))+geom_jitter()+theme_bw()+geom_smooth(method="lm",alpha=.2,colour="gray")+facet_wrap(~variable,scales="free")
-dev.off()
